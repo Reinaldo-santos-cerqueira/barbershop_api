@@ -4,7 +4,9 @@
     "description": "Api voltada para um aplicativo para agendamento de barbearia",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prepare": "husky install",
+        "lint": "eslint ."
     },
     "keywords": [],
     "author": "Reinaldo Santos",
@@ -13,6 +15,7 @@
         "@typescript-eslint/eslint-plugin": "^6.16.0",
         "@typescript-eslint/parser": "^6.16.0",
         "eslint": "^8.56.0",
-        "git-commit-msg-linter": "^5.0.6"
+        "git-commit-msg-linter": "^5.0.6",
+        "husky": "^8.0.3"
     }
 }
