@@ -1,15 +1,18 @@
 {
-  "name": "barbershop_api",
-  "version": "1.0.0",
-  "description": "Api voltada para um aplicativo para agendamento de barbearia",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "Reinaldo Santos",
-  "license": "ISC",
-  "dependencies": {
-    "git-commit-msg-linter": "^5.0.6"
-  }
+    "name": "barbershop_api",
+    "version": "1.0.0",
+    "description": "Api voltada para um aplicativo para agendamento de barbearia",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Reinaldo Santos",
+    "license": "ISC",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^6.16.0",
+        "@typescript-eslint/parser": "^6.16.0",
+        "eslint": "^8.56.0",
+        "git-commit-msg-linter": "^5.0.6"
+    }
 }
