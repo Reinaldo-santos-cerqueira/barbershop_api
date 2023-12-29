@@ -6,7 +6,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prepare": "husky install",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts"
     },
     "keywords": [],
     "author": "Reinaldo Santos",
@@ -16,6 +17,12 @@
         "@typescript-eslint/parser": "^6.16.0",
         "eslint": "^8.56.0",
         "git-commit-msg-linter": "^5.0.6",
-        "husky": "^8.0.3"
+        "husky": "^8.0.3",
+        "typescript": "^5.3.3"
+    },
+    "dependencies": {
+        "@types/node": "^20.10.5",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0"
     }
 }
