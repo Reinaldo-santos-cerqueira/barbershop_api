@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+//enums
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model address {
+  id         String      @id @default(uuid())
+  city       String
+  cep        String
+  number     String
+  country    String
+  uf         String      @db.Char(2)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  enterprise enterprise?
+}
+
+model accountBank {
+  id          String @id @default(uuid())
+  titleholder String
+  identifier  String
+  bank        String
+  agency      String
+  type        String
+  dv          String
+}
+
+model geocoordinate {
+  id           String      @id @default(uuid())
+  type         String
+  longitude    Float
+  latitude     Float
+  enterprise   enterprise? @relation(fields: [enterpriseId], references: [id])
+  enterpriseId String?
+}
+
+model enterprise {
+  id            String          @id @default(uuid())
+  name          String
+  photo         String
+  email         String
+  phone         String
+  cover         String
+  addres        address         @relation(fields: [addresId], references: [id])
+  addresId      String          @unique
+  geocoordinate geocoordinate[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model employee {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  phone       String
+  password    String
+  photo       String
+  status      Status
+  dateOfBirth DateTime
+  gender      Gender
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  idPagarme   String
+}
