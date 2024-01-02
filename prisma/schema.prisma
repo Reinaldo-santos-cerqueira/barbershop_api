@@ -11,6 +11,11 @@ enum Gender {
   FEMALE
 }
 
+enum typeDoc {
+  CPF
+  RG
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -31,52 +36,133 @@ model address {
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   enterprise enterprise?
-}
-
-model accountBank {
-  id          String @id @default(uuid())
-  titleholder String
-  identifier  String
-  bank        String
-  agency      String
-  type        String
-  dv          String
+  client     client?
 }
 
 model geocoordinate {
-  id           String      @id @default(uuid())
+  id           String     @id @default(uuid())
   type         String
   longitude    Float
   latitude     Float
-  enterprise   enterprise? @relation(fields: [enterpriseId], references: [id])
-  enterpriseId String?
+  enterprise   enterprise @relation(fields: [enterpriseId], references: [id])
+  enterpriseId String
 }
 
 model enterprise {
-  id            String          @id @default(uuid())
-  name          String
-  photo         String
-  email         String
-  phone         String
-  cover         String
-  addres        address         @relation(fields: [addresId], references: [id])
-  addresId      String          @unique
-  geocoordinate geocoordinate[]
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  id                      String                    @id @default(uuid())
+  name                    String
+  photo                   String
+  email                   String
+  phone                   String
+  cover                   String
+  addres                  address                   @relation(fields: [addresId], references: [id])
+  addresId                String                    @unique
+  geocoordinate           geocoordinate[]
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
+  service                 service?
+  rel_employee_enterprise rel_employee_enterprise[]
+  rel_employee_service    rel_employee_service[]
+  rel_client_enterprise   rel_client_enterprise[]
 }
 
 model employee {
-  id          String   @id @default(uuid())
-  name        String
-  email       String
-  phone       String
-  password    String
-  photo       String
-  status      Status
-  dateOfBirth DateTime
-  gender      Gender
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  idPagarme   String
+  id                 String                    @id @default(uuid())
+  name               String
+  email              String
+  phone              String
+  user               String
+  password           String
+  photo              String
+  status             Status
+  dateOfBirth        DateTime
+  gender             Gender
+  idPagarme          String
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+  schedule           schedule[]
+  rel_employee_salon rel_employee_enterprise[]
+}
+
+model service {
+  id                   String                 @id @default(uuid())
+  enterprise           enterprise             @relation(fields: [enterpriseId], references: [id])
+  enterpriseId         String                 @unique
+  title                String
+  price                Float
+  duration             Float
+  commission           Float
+  description          String
+  status               Status
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  schedule             schedule[]
+  rel_employee_service rel_employee_service[]
+}
+
+model client {
+  id                    String                  @id @default(uuid())
+  user                  String
+  name                  String
+  email                 String
+  phone                 String
+  password              String
+  photo                 String
+  status                Status
+  dateOfBirth           DateTime
+  gender                Gender
+  document              String
+  addres                address                 @relation(fields: [addresId], references: [id])
+  addresId              String                  @unique
+  schedule              schedule[]
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  rel_client_enterprise rel_client_enterprise[]
+}
+
+model schedule {
+  id         String   @id @default(uuid())
+  client     client   @relation(fields: [clientId], references: [id])
+  clientId   String
+  employee   employee @relation(fields: [employeeId], references: [id])
+  employeeId String
+  service    service  @relation(fields: [serviceId], references: [id])
+  serviceId  String
+  dateStart  DateTime
+  dateEnd    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model rel_employee_enterprise {
+  id           String     @id @default(uuid())
+  employee     employee   @relation(fields: [employeeId], references: [id])
+  employeeId   String
+  enterprise   enterprise @relation(fields: [enterpriseId], references: [id])
+  enterpriseId String
+  status       Status
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model rel_employee_service {
+  id           String     @id @default(uuid())
+  service      service    @relation(fields: [serviceId], references: [id])
+  serviceId    String
+  enterprise   enterprise @relation(fields: [enterpriseId], references: [id])
+  enterpriseId String
+  status       Status
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model rel_client_enterprise {
+  id           String     @id @default(uuid())
+  client       client     @relation(fields: [clientId], references: [id])
+  clientId     String
+  enterprise   enterprise @relation(fields: [enterpriseId], references: [id])
+  enterpriseId String
+  status       Status
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
