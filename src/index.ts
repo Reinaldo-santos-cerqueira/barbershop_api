@@ -1,12 +1,14 @@
 import express from 'express';
-import morgan from 'morgan';
 import dotenv from 'dotenv';
+import cors from 'cors';
 dotenv.config();
 
 const app = express();
+app.use(cors({
+    'origin': '*'
+}));
 const port = Number(process.env.port);
 
-app.use(morgan('dev'));
 
 app.listen(port, () => {
     console.log(`Rodando na porta ${port}`);
