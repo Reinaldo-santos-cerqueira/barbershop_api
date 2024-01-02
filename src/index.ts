@@ -1,6 +1,7 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import AppError from './middlewares/appErros';
 dotenv.config();
 
 const app = express();
@@ -8,6 +9,25 @@ app.use(cors({
     'origin': '*'
 }));
 const port = Number(process.env.port);
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
+    const error = new AppError('Erro app teste', 404);
+    next(error);
+});
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+
+    if (error instanceof AppError) {
+        const { message, statusCode } = error;
+        return res.status(statusCode).json({
+            error: message,
+        });
+    }
+    return res.status(500).json({
+        status: 'error',
+        message: 'Internal server error'
+    });
+});
 
 
 app.listen(port, () => {
