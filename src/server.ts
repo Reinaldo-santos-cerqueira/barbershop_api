@@ -1,7 +1,9 @@
 import express, { NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import AppError from './middlewares/appErros';
+import { AppError } from '@middlewares';
+import { AuthenticationRoutes } from '@routes';
+
 dotenv.config();
 
 const app = express();
@@ -13,6 +15,7 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
     const error = new AppError('Erro app teste', 404);
     next(error);
 });
+app.use('/authentication', AuthenticationRoutes);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
