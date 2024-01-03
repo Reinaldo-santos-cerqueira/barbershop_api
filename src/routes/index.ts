@@ -1,1 +1,1 @@
-export * from './authentication.routes';
+export * from './authentication/authentication.routes';
