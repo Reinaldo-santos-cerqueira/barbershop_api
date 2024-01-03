@@ -25,6 +25,12 @@
       ],
       "@service": [
         "service"
+      ],
+      "@models": [
+        "models"
+      ],
+      "@repositories": [
+        "repositories"
       ]
     }
   },
