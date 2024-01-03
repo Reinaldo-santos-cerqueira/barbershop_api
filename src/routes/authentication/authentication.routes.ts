@@ -5,4 +5,5 @@ export const AuthenticationRoutes = express.Router();
 
 const authenticationControllers = new AuthenticationControllers();
 
-AuthenticationRoutes.get('/login', authenticationControllers.login);
+AuthenticationRoutes.post('/createdClient', authenticationControllers.createdClient);
+AuthenticationRoutes.post('/createdEmployee', authenticationControllers.createdEmployee);
