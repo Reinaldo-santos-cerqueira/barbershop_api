@@ -102,7 +102,7 @@ model service {
 
 model client {
   id                    String                  @id @default(uuid())
-  user                  String
+  user                  String                  @unique
   name                  String
   email                 String
   phone                 String
