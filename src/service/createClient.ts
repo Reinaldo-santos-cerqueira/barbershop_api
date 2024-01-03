@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { ClientRepositories } from '@repositories';
+import { encryptValidatePassword } from '@utils';
 
 interface ICreateClient {
     address: Prisma.addressCreateInput;
@@ -9,7 +10,8 @@ interface ICreateClient {
 export class CreateClient {
     async execute({ address, client }: ICreateClient) {
         const clientRepositories = new ClientRepositories();
-        const newClient = await clientRepositories.create(client, address);
+        const passwordEncrypted = await encryptValidatePassword(client.password);
+        const newClient = await clientRepositories.create({ ...client, password: passwordEncrypted }, address);
         return newClient;
     }
 }
