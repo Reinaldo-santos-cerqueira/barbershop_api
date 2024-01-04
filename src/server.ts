@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
+import 'express-async-errors';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { AppError } from '@middlewares';
@@ -20,7 +21,6 @@ app.use('/authentication', AuthenticationRoutes);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-
     if (error instanceof AppError) {
         const { message, statusCode } = error;
         return res.status(statusCode).json({
