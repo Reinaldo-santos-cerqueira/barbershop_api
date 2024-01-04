@@ -1,4 +1,4 @@
-import { CreateClient } from '../'; // Substitua com o caminho correto
+import { CreateClient } from '../createClient'; // Substitua com o caminho correto
 import { ClientRepositories } from '@repositories';
 import { mockUserAddress } from './mock/userMock';
 import { Prisma } from '@prisma/client';

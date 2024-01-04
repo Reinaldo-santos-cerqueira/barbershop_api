@@ -1,6 +1,6 @@
-import { CreateEmployee } from '../'; // Substitua com o caminho correto
+import { CreateEmployee } from '../createEmployee';
 import { EmployeeRepositories } from '@repositories';
-import { mockEmployee } from './mock/userMock';
+import { mockEmployee } from './mock/employeeMock';
 import { Prisma } from '@prisma/client';
 beforeEach(() => {
     jest.clearAllMocks();
