@@ -6,13 +6,7 @@ export async function encryptValidatePassword(password: string): Promise<string>
     if (!passwordStrongRegex.test(password)) {
         throw new AppError('Senha fraca precisa ter: 10 caracteres,pelo menos uma letra minúscula,pelo menos uma letra maiúscula,pelo menos um número e pelo menos um caractere especial', 400);
     }
-    try {
+    const hash = await bcrypt.hash(password, saltRounds);
+    return hash;
 
-        const hash = await bcrypt.hash(password, saltRounds);
-        return hash;
-    }
-    catch {
-        throw new AppError('Erro ao encryptar a senha. Tente novamente.', 500);
-    }
 }
-
