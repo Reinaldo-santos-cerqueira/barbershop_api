@@ -31,6 +31,12 @@
       ],
       "@repositories": [
         "repositories"
+      ],
+      "@errors": [
+        "errors"
+      ],
+      "@config": [
+        "config"
       ]
     }
   },

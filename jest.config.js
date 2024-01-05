@@ -10,6 +10,8 @@ module.exports = {
         '@utils': '<rootDir>/src/utils',
         '@service': '<rootDir>/src/service',
         '@models': '<rootDir>/src/models',
-        '@repositories': '<rootDir>/src/repositories'
+        '@repositories': '<rootDir>/src/repositories',
+        '@errors': '<rootDir>/src/errors',
+        '@config': '<rootDir>/src/config',
     }
 };
