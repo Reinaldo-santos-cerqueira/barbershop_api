@@ -1,4 +1,4 @@
-import { AppError } from '@middlewares';
+import { AppError } from '@errors';
 import bcrypt from 'bcrypt';
 export async function encryptValidatePassword(password: string): Promise<string> {
     const saltRounds = 10;
