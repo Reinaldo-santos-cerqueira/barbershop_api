@@ -8,7 +8,7 @@ export class ClientRepositories {
     }
 
     async create(client: Prisma.clientCreateInput, address: Prisma.addressCreateInput) {
-        await this.prisma.client.create({
+        const newUser = await this.prisma.client.create({
             data: {
                 ...client,
                 address: {
@@ -16,5 +16,17 @@ export class ClientRepositories {
                 }
             }
         });
+        return newUser;
+    }
+    async verifyUserExist(user: string) {
+        const findUSer = await this.prisma.client.findFirst({
+            where: {
+                user: user
+            }
+        });
+        if (findUSer) {
+            return true;
+        }
+        return false;
     }
 }
