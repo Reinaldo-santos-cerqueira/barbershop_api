@@ -4,14 +4,10 @@ import cors from 'cors';
 import { ErrorHandler } from '@middlewares';
 import { AppError } from '@errors';
 import dotenv from 'dotenv';
+import { AuthenticationRoutes } from '@routes';
 
 export interface IExpress {
     error: Error, req: Request, res: Response, next: NextFunction
-}
-export interface IRoutes {
-    method: 'get' | 'post' | 'patch' | 'put' | 'delete';
-    url: string;
-    controller: () => Promise<Response>
 }
 dotenv.config();
 export class AppServer {
@@ -19,6 +15,7 @@ export class AppServer {
     constructor() {
         this.app = express();
         this.configureMiddleware();
+        this.configureRoutes();
         this.configureErrorHandling();
         const port = Number(process.env.PORT || 3000);
         this.start(port);
@@ -43,7 +40,8 @@ export class AppServer {
             console.log(`Server running on port ${port}`);
         });
     }
-
-
+    private configureRoutes() {
+        this.app.use('/authentication', AuthenticationRoutes);
+    }
 }
 
