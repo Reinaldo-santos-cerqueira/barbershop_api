@@ -8,8 +8,20 @@ export class EmployeeRepositories {
     }
 
     async create(employee: Prisma.employeeCreateInput) {
-        await this.prisma.employee.create({
+        const newEmployee = await this.prisma.employee.create({
             data: employee
         });
+        return newEmployee;
+    }
+    async verifyExists(user: string) {
+        const findUser = await this.prisma.employee.findFirst({
+            where: {
+                user
+            }
+        });
+        if (findUser) {
+            return true;
+        }
+        return false;
     }
 }
