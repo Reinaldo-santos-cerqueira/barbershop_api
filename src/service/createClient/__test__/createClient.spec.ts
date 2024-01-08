@@ -39,8 +39,6 @@ describe('CreateClient', () => {
         try {
             await createClient.execute({ address: mockAddress, client: { ...mockUser, password: '123', user: 'admin' } });
         } catch (error: any) {
-            console.log(error);
-
             expect(error instanceof AppError).toBe(true);
             expect(error.message).toBe('Senha fraca precisa ter: 10 caracteres,pelo menos uma letra minúscula,pelo menos uma letra maiúscula,pelo menos um número e pelo menos um caractere especial');
         }
@@ -66,13 +64,9 @@ describe('CreateClient', () => {
         const mockUser = { ...mockUserAddress.client } as Prisma.clientCreateInput;
         const verifyUserExist = jest.spyOn(ClientRepositories.prototype, 'verifyUserExist');
         verifyUserExist.mockResolvedValue(false);
-        try {
-            const createSpy = jest.spyOn(ClientRepositories.prototype, 'create');
-            createSpy.mockResolvedValue({ ...mockUserAddress.client, user: 'test ', addressId: '1', status: Status.ACTIVE, gender: Gender.MALE });
-            await createClient.execute({ address: mockAddress, client: { ...mockUser, user: 'test' } });
-            expect(createSpy).toHaveBeenCalled();
-        } catch (error: any) {
-            expect(error instanceof AppError).toBe(true);
-        }
+        const createSpy = jest.spyOn(ClientRepositories.prototype, 'create');
+        createSpy.mockResolvedValue({ ...mockUserAddress.client, user: 'test ', addressId: '1', status: Status.ACTIVE, gender: Gender.MALE });
+        await createClient.execute({ address: mockAddress, client: { ...mockUser, user: 'test', password: 'Rei@123456789' } });
+        expect(createSpy).toHaveBeenCalled();
     });
 });
