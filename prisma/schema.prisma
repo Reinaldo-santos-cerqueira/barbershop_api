@@ -71,7 +71,7 @@ model employee {
   name               String
   email              String
   phone              String
-  user               String
+  user               String                    @unique
   password           String
   photo              String
   status             Status
